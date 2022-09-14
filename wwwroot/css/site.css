@@ -1,0 +1,105 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Za dark-mode Bootstrap */
+    /* background-color: #12161d;
+  color: #fff;*/
+}
+
+/* Da je sve uvecano na ekranu */
+/* U site.css dodati u body class="e-bigger" */
+
+/*.e-bigger {
+    font-size: x-large;
+}*/
+
+/* Widget */
+.widget {
+    border-radius: 1rem;
+    background-color: #1a222b;
+}
+
+.widget.summary > div:first-child {
+    background-color: #222b33;
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+    .widget.summary > div:first-child i {
+        font-weight: bold;
+    }
+
+.widget.income > div:first-child {
+    color: #65da41;
+}
+
+.widget.expense > div:first-child {
+    color: #ff4e48;
+}
+.widget.balance > div:first-child {
+    color: #2aa1ff;
+}
+
+.widget.chart {
+    padding: 5px;
+}
+
+.form-control-2 {
+    width: 20%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Footer -> FIXED Home */
+.footer-home {
+    height: 120px;
+    width: 100%;
+    position: fixed;
+    bottom: 0pt;
+    left: 0pt;
+}
+
+/* Footer -> FIXED Others */
+.footer-others {
+    height: 105px;
+    width: 100%;
+    position: fixed;
+    bottom: 0pt;
+    left: 0pt;
+}
+
+/* Footer -> ABSOLUTE */
+.footer-absolute {
+    height: 364px;
+    width: 100%;
+    position: scroll;
+    bottom: 0pt;
+    left: 0pt;
+}

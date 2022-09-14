@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PI2022.Models.Offers>
+
+@{
+    ViewData["Title"] = "Ponude";
+}
+@if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac")){
+<h1 class="d-flex justify-content-center py-3 fw-bold">PONUDE POSLOVA</h1>
+
+<form asp-controller="Offers" asp-action="Index" method="get">
+    <p>
+        <input class="form-control-2" type="text" name="SearchString" placeholder="Naziv ponude..." />
+        <input class="btn btn-primary ms-2 mb-1 px-3 fw-bold" type="submit" value="Pretraži" />
+    </p>
+</form>
+
+<a class="btn btn-primary fw-bold px-3" asp-action="Create" style="color:white">Dodaj Novu Ponudu</a>
+
+<table class="table table-hover table-bordered border-secondary mt-4 mb-4">
+    <thead style="background-color: #45526e; color: white;">
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Opis Posla
+            </th>
+            <th>
+                Broj Osoba
+            </th>
+            <th>
+                Broj Sati
+            </th>
+            <th>
+                Cijena po Satu
+            </th>
+            <th>
+                Potrebna Oprema
+            </th>
+            <th>
+                Početak Radova
+            </th>
+            <th>
+                Završetak Radova
+            </th>
+            <th colspan="2">Opcije</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpisPosla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojOsoba)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojSati)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CijenaSata) KM/h
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PotrebnaOprema)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PocetakRadova)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZavrsetakRadova)
+            </td>
+            <td>
+                <div class="d-grid gap-2 d-md-block">
+                    <a class="btn btn-sm btn-warning fw-bold me-1 mt-2" style="color: white;" asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a class="btn btn-sm btn-info fw-bold ms-1 mt-2" style="color: white;" asp-action="Details" asp-route-id="@item.Id">Detalji</a> 
+                    <a class="btn btn-sm btn-success fw-bold me-1 mt-2" style="color: white;" asp-controller="Jobs" asp-action="CreateFromOffer" asp-route-Id="@item.Id">Prihvati posao</a> | 
+                    <a class="btn btn-sm btn-danger fw-bold ms-1 me-1 mt-2" style="color: white" asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}

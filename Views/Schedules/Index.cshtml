@@ -1,0 +1,69 @@
+﻿@model IEnumerable<PI2022.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Raspored";
+}
+@if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac") || User.IsInRole("zaposlenik")){
+<h1 class="d-flex justify-content-center py-3 fw-bold">RASPORED</h1>
+
+@if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac")){
+    <a class="btn btn-primary fw-bolder" asp-action="Create" style="color:white">Dodaj</a>
+}
+
+<table class="table table-hover table-bordered border-secondary mt-4">
+    <thead style="background-color: #45526e; color: white;">
+        <tr>
+            <th>
+                Zaposlenik
+            </th>
+            <th>
+                Posao
+            </th>
+            <th>
+                Napomena
+            </th>
+            <th>
+                Početak Rada
+            </th>
+            <th>
+                Završetak Rada
+            </th>
+            <th>
+                Broj Sati
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Posao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Napomena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PocetakRada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZavrsetakRada)
+            </td>
+            <td>
+                @Html.Raw(Math.Round(item.ZavrsetakRada.Subtract(item.PocetakRada).TotalHours, 1))
+            </td>
+            @if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac")){
+            <td>
+                <a class="btn btn-sm btn-warning fw-bold" style="color: white;" asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a class="btn btn-sm btn-info fw-bold" style="color: white;" asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                <a class="btn btn-sm btn-danger fw-bold" style="color: white;" asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
+            </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>
+}

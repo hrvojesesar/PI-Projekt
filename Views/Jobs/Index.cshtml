@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PI2022.Models.Jobs>
+
+@{
+    ViewData["Title"] = "Poslovi";
+}
+@if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac") || User.IsInRole("zaposlenik")){
+<h1 class="d-flex justify-content-center py-3 fw-bold">POSLOVI</h1>
+
+<form asp-controller="Jobs" asp-action="Index" method="get">
+    <p>
+        <input class="form-control-2" type="text" name="SearchString" placeholder="Naziv posla..."/>
+        <input class="btn btn-primary ms-2 mb-1 px-3 fw-bold" type="submit" value="Pretraži" />
+    </p>
+</form>
+@if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac")){
+<a class="btn btn-primary fw-bold px-3" asp-action="Create" style="color:white">Dodaj Novi Posao</a>
+}
+<table class="table table-hover table-bordered border-secondary mt-4">
+    <thead style="background-color: #45526e; color: white;">
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Opis Posla
+            </th>
+            <th>
+                Broj Osoba
+            </th>
+            <th>
+                Broj Sati
+            </th>
+            <th>
+                Cijena Sata
+            </th>
+            <th>
+                Potrebna Oprema
+            </th>
+            <th>
+                Početak Radova
+            </th>
+            <th>
+                Završetak Radova
+            </th>
+             @if (User.IsInRole("administrator") || User.IsInRole("vlasnik")){
+            <th>
+                Trošak
+            </th>
+            <th>
+                Predviđeni Profit
+            </th>
+            }
+            @if (User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac"))
+            {
+                <th>Opcije</th>
+            }
+            </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpisPosla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojOsoba)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojSati)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CijenaSata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PotrebnaOprema)
+            </td>
+            <td>
+                @Html.Raw(DateOnly.FromDateTime(item.PocetakRadova))
+            </td>
+            <td>
+                @Html.Raw(DateOnly.FromDateTime(item.ZavrsetakRadova))
+            </td>
+             @if (User.IsInRole("administrator") || User.IsInRole("vlasnik")){
+            <td>
+                @Html.DisplayFor(modelItem => item.Trosak) KM
+            </td>
+            <td>
+                @Html.Raw(Math.Round(item.Profit, 2)) KM
+            </td>
+             }
+            @if(User.IsInRole("administrator") || User.IsInRole("vlasnik") || User.IsInRole("poslodavac")){
+            <td>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-sm btn-warning fw-bold me-1" style="color: white;" asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a class="btn btn-sm btn-info fw-bold mx-1" style="color: white;" asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                    <a class="btn btn-sm btn-danger fw-bold ms-1" style="color: white;" asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
+                </div>
+            </td>}
+        </tr>
+}
+    </tbody>
+</table>
+}

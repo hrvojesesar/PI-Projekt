@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PI2022.Models.Users>
+
+@{
+    ViewData["Title"] = "Korisnici";
+}
+@if(User.IsInRole("administrator")){
+<h1 class="d-flex justify-content-center py-3 fw-bold">KORISNICI</h1>
+<table class="table table-hover table-bordered border-secondary">
+    <thead style="background-color: #45526e; color: white;">
+        <tr>
+            <th>
+                Korisničko ime
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Broj telefona
+            </th>
+            <th>
+                Uloga
+            </th>
+            <th>
+                Opcije
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @string.Join(", ", item.Roles.ToList())
+            </td>
+            <td>
+                <a class="btn btn-danger fw-bolder" asp-action="Manage" asp-route-userId="@item.UserId">Uredi uloge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
